@@ -1,17 +1,50 @@
 # 웹 어플리케이션
-## 웹어플리케이션의 기본구조
-1. 입력
-2. 처리
-3. 출력
 
-## 사용한 methods 
-1. ajax
-- new XMLHttpRequest() 생성
-- open(method, url, async, user, password) 
-	- method : get post put delete
-	- url : url
-	- async, user, password  (opt)
-- send() : 요청을 전송 -> 즉시반환
+## 웹어플리케이션의 기본구조
+	1. 입력 : 서버에서 데이터를 전송받음
+	2. 처리 : 전송받은 데이터를 배열, 객체타입으로 처리하여 출력할 수 있게 가공함
+	3. 출력 : 가공한 데이터를 화면에 뿌림
+
+## 1. ajax : 서버에서 간단히 데이터를 주고받는 방식
+
+	- new XMLHttpRequest() 생성
+
+	- open(method, url, async, user, password) ; 전송방식 주소 비동기 처리등을 설정
+		* method : get post put delete
+		* url : url
+		*	async, user, password  (opt)
+
+	- send() : 요청을 전송, 즉시 반환
+
+## 2. 리팩토링
+
+	1. 리팩토링의 기본 접근
+		1.1 html의 생성과 수정
+		- dom api를 최대한 사용하지 않고 문자열로 ui를 만든다.
+		- push, join을 이용해서 배열로 문자열 형태의 ui를 만든다.(배열에 담아서 합쳐서 문자열을 만든다.)
+
+	2. 반복되는 코드의 처리
+	- 문자의 중복은 변수로 변환
+	- 코드의 반복은 함수로 변환
+	- 배열은 데이터를 읽기 좋음 (검색알고리즘: 선형, 이진 // 정렬알고리즘)
+
+## 3. 라우터 (중계기)
+	- 현재 페이지에서 다른 페이지로 이동을 도와주는 중계역활의 코드
+
+	- 기초적인 라우터의 기능
+		* window Event hashchange 를 읽어와서 hash change 될때의 location.hash 값을 통해 현재페이지에서 ui, data를 변경한다.
+		* 만약 anchor tag에 href="#" 만 존재한다면 loction.hash의 값은 '' 빈문자열로 반환된다.
+
+## 4. pagination 만들기
+
+	1. 페이지를 구현할때 생각해야할 것들
+		- 현재페이지의 정보 : 현재 페이지의 정보를 전역으로 관리하기 위해서 store 객체를 만들고 변수를 설정한다.
+		- 글 목록의 최대갯수와 아이템을 물러
+
+	2. hash value 에 라우터가 읽고 기능을 분류할 수 있는 문자열을 넣는다.
+		- 예를 들어 페이지의 목록을 출력할때는 #/page/1 이라는 문자열을 넣고, 라우터에서는 indexOf('/page/')로 있는지 판단하여 있을때 목록을 생성하는 코드를 작성한다.
+		- 반대로 페이지의 내용을 출력할 때는 #/show/12345 라는 hash 값이 들어가게 코드를 작성하고 라우터에서 /show/로 읽어와서 해당코드를 작성한다.
+
 
 
 # 웹앱 : hacker News api를 통한 javascirpt와 typescript의 비교
